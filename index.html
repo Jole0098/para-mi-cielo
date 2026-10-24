@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Para Isabella, mi lugar favorito en el mundo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0709;--vino:#4a0f24;--rosa:#e8a1b0;--calido:#fff3ea;--acento:#c2335a;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% 0,#2a0b19 0,var(--bg) 60%) fixed;color:var(--calido);font:17px/1.65 "Nunito Sans",system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;margin:0}
+h2{font-size:clamp(2rem,6vw,3rem);font-style:italic;margin-bottom:.4rem}
+.sec{max-width:52rem;margin:0 auto;padding:4.5rem 1.25rem}
+.lead{opacity:.75;margin:0 0 2rem}
+.btn{font:inherit;background:transparent;color:var(--calido);border:1px solid var(--rosa);padding:.8rem 1.6rem;border-radius:999px;cursor:pointer;transition:background .3s,border-color .3s}
+.btn:hover{background:var(--acento);border-color:var(--acento)}
+.btn:disabled{opacity:.4;cursor:default}
+:focus-visible{outline:3px solid var(--rosa);outline-offset:3px}
+.panel{background:linear-gradient(160deg,rgba(74,15,36,.55),rgba(20,8,13,.85));border:1px solid rgba(232,161,176,.25);border-radius:1.2rem;padding:clamp(1.4rem,5vw,3rem)}
+/* Bienvenida */
+#welcome{position:fixed;inset:0;z-index:50;display:grid;place-items:center;text-align:center;padding:1.5rem;background:var(--bg);transition:opacity 1.1s}
+#welcome.out{opacity:0;pointer-events:none}
+#fx{position:absolute;inset:0;width:100%;height:100%}
+.w-in{position:relative;max-width:34rem}
+#nombre{font-size:clamp(4rem,19vw,9rem);font-style:italic;line-height:1;letter-spacing:.02em}
+#nombre span{display:inline-block;opacity:0;filter:blur(12px);animation:ent 1.4s forwards}
+@keyframes ent{to{opacity:1;filter:none}}
+#frase{margin:1.5rem 0 2rem;opacity:0;animation:ent 1.6s 1.6s forwards}
+#entrar{opacity:0;animation:ent 1.4s 2.6s forwards}
+/* Carta */
+#carta-texto{font:italic 500 clamp(1.2rem,3.6vw,1.45rem)/1.6 "Cormorant Garamond",Georgia,serif;white-space:pre-line;min-height:6rem}
+#firma{margin-top:1.5rem;text-align:right;color:var(--rosa);animation:ent 1.5s}
+/* Razones */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:.9rem;margin:1.5rem 0}
+.card{background:rgba(74,15,36,.4);border:1px solid rgba(232,161,176,.2);border-radius:.9rem;padding:1rem 1.1rem;animation:ent .8s}
+.card small{display:block;color:var(--rosa);opacity:.8;margin-bottom:.3rem}
+.card p{margin:0}
+/* Abre cuando */
+.sobres{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem}
+.sobre{font:inherit;text-align:left;color:var(--calido);background:rgba(74,15,36,.4);border:1px solid rgba(232,161,176,.25);border-radius:.9rem;padding:1rem 1.1rem;cursor:pointer;transition:transform .3s,background .3s}
+.sobre:hover{background:rgba(194,51,90,.35);transform:translateY(-3px)}
+dialog{border:1px solid rgba(232,161,176,.35);border-radius:1.2rem;background:#1a0a12;color:var(--calido);max-width:30rem;width:calc(100% - 2.5rem);padding:2rem;animation:ent .6s}
+dialog::backdrop{background:rgba(5,2,3,.8)}
+dialog h3{font-size:1.7rem;font-style:italic;margin-bottom:.8rem}
+/* Jardín */
+.jardin{display:flex;justify-content:space-around;align-items:flex-end;min-height:17rem;padding:0 .2rem 0;border-radius:1.2rem;background:linear-gradient(to top,rgba(74,15,36,.5),transparent)}
+.flor{background:none;border:0;padding:0;cursor:pointer;width:14%;max-width:3.6rem;min-width:2.75rem;transition:filter .5s,transform .4s}
+.flor svg{width:100%;height:auto;display:block}
+.flor:hover{transform:translateY(-4px)}
+.flor.on{filter:drop-shadow(0 0 10px var(--rosa))}
+#msg-flor{min-height:5.5rem;margin-top:1.2rem;text-align:center;font:italic 500 1.4rem/1.5 "Cormorant Garamond",Georgia,serif}
+/* Final */
+#final{text-align:center;min-height:80vh;display:grid;place-content:center;gap:2rem}
+#final blockquote{margin:0 auto;max-width:36rem;font:italic 500 clamp(1.4rem,4.5vw,2rem)/1.5 "Cormorant Garamond",Georgia,serif}
+#fin{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:1.25rem;background:rgba(6,2,4,.95);opacity:0;pointer-events:none;transition:opacity 1.6s;overflow:auto}
+#fin.on{opacity:1;pointer-events:auto}
+#fin .panel{position:relative;max-width:34rem;text-align:center;font:italic 500 1.35rem/1.6 "Cormorant Garamond",Georgia,serif;white-space:pre-line}
+.h{position:absolute;bottom:-2rem;color:var(--acento);animation:sube linear infinite;opacity:0}
+@keyframes sube{10%{opacity:.8}100%{transform:translateY(-110vh);opacity:0}}
+#fin:not(.on) .h{animation:none}
+/* Escenas */
+.sec{position:relative}
+#amb{position:fixed;inset:0;z-index:-1;opacity:.55;background:#2a0b19;transition:background-color 1.4s;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 72%);mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 72%)}
+#amb[data-a=c]{background:#5a2a14}#amb[data-a=v]{background:#4a0f24}#amb[data-a=l]{background:#3b2f1c}#amb[data-a=n]{background:#0e1a44}#amb[data-a=r]{background:#5a1a3a}#amb[data-a=f]{background:#1a0a12}
+.seguir{display:block;margin:3rem auto 0;opacity:.8}
+.cielo{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:.4rem;padding:1rem .3rem;border-radius:1.2rem;background:rgba(6,10,30,.6);border:1px solid rgba(160,180,255,.15)}
+.est{background:none;border:0;color:#9fb3ff;opacity:.55;font-size:1.5rem;min-height:2.9rem;cursor:pointer;transition:opacity .4s,color .4s,text-shadow .4s}
+.est:hover{opacity:1}.est.esp{font-size:2.3rem;color:var(--rosa)}
+.est.on{opacity:1;color:#fff;text-shadow:0 0 12px var(--rosa),0 0 24px var(--acento)}
+#msg-est{min-height:6rem;margin-top:1.2rem;text-align:center;white-space:pre-line;font:italic 500 1.4rem/1.5 "Cormorant Garamond",Georgia,serif}
+.libro{max-width:34rem;margin:0 auto}
+.libro h3{font-style:italic;font-size:1.7rem;margin-bottom:1rem;color:var(--rosa)}
+#l-p{font-size:1.3rem;line-height:1.7;min-height:11rem;animation:ent .7s}
+.l-nav{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-top:1.5rem;font-size:.9rem}
+#prog{color:var(--calido);font:inherit;cursor:pointer;position:fixed;left:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));z-index:40;background:rgba(20,8,13,.85);border:1px solid rgba(232,161,176,.3);border-radius:999px;padding:.3rem .9rem;font-size:.85rem}
+#toast{position:fixed;top:calc(1rem + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:70;max-width:90%;background:#1a0a12;border:1px solid var(--rosa);border-radius:1rem;padding:.8rem 1.2rem;opacity:0;pointer-events:none;transition:opacity .5s;text-align:center}
+#toast.on{opacity:1}
+/* Música */
+#musica{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:.6rem;align-items:center;background:rgba(20,8,13,.85);border:1px solid rgba(232,161,176,.3);border-radius:999px;padding:.4rem .5rem .4rem 1rem}
+#musica input{width:5rem;accent-color:var(--acento)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-delay:0s!important;transition-duration:.01s!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- ============ CONFIGURACIÓN (edita solo esta parte) ============ -->
+<script>
+const C={
+  nombre:"Isabella",
+  firma:"JJ",                              // cómo firmas
+  frase:"Hay personas que llegan a tu vida y hacen que todo tenga un poquito más de sentido. Para mí, tú eres una de ellas.",
+  musicaUrl:"",                            // pega aquí la URL de un .mp3 tuyo; si queda vacío no aparece el reproductor
+  colores:{acento:"#c2335a",rosa:"#e8a1b0",calido:"#fff3ea"},
+  carta:[
+    "{n}, quise hacerte esto yo mismo porque un mensaje corto se me quedaba pequeño para lo que siento.",
+    "Te amo muchísimo. No te lo digo para quedar bien: te lo digo porque quiero que lo tengas claro, sin dudas.",
+    "Eres muy importante para mí. Tu presencia puede mejorar mis días, incluso los que empiezan mal, y eso para mí vale muchísimo.",
+    "No necesito que seas perfecta para quererte. Te quiero como eres, con tus días buenos y tus días difíciles. Elegirte es valorar quién eres, no compararte con nadie.",
+    "Quiero conocerte cada día más: escucharte, apoyarte, reírme contigo y acompañarte cuando las cosas se pongan pesadas.",
+    "Quiero que creemos recuerdos bonitos. Y sé que hasta lo más pequeño y cotidiano, si lo comparto contigo, puede volverse especial.",
+    "Gracias por ser quien eres. Ojalá nunca dudes de lo importante que eres para mí."
+  ],
+  razones:[
+    {g:"Cómo me haces sentir",t:["Porque contigo los días normales se sienten distintos.","Porque me haces sentir tranquilo.","Porque contigo puedo ser yo, sin fingir.","Porque me sacas sonrisas sin esfuerzo.","Porque pensar en ti mejora mi día.","Porque me haces querer ser mejor persona."]},
+    {g:"Tu forma de ser",t:["Porque eres única y nadie es como tú.","Porque no necesitas ser perfecta para que te quiera.","Porque me encanta cada detalle que voy descubriendo de ti.","Porque tu manera de expresarte es solo tuya.","Porque todo lo que me queda por conocer de ti me emociona.","Porque te quiero por quién eres, sin compararte con nadie."]},
+    {g:"Los detalles",t:["Porque hasta lo pequeño contigo se vuelve especial.","Porque un mensaje tuyo puede cambiarme el día.","Porque me importa lo que piensas y lo que sientes.","Porque me gusta escucharte.","Porque contigo un momento cualquiera vale la pena.","Porque quiero cuidar los detalles que te hacen feliz."]},
+    {g:"Nosotros",t:["Porque quiero construir confianza contigo, poco a poco.","Porque quiero acompañarte en tus días buenos y en los malos.","Porque contigo hasta el plan más simple suena bien.","Porque quiero reírme contigo muchas veces más.","Porque contigo la compañía se siente de verdad.","Porque quiero apoyarte en lo que te importa."]},
+    {g:"Lo que viene",t:["Porque quiero crear recuerdos bonitos contigo.","Porque quiero conocer lugares nuevos a tu lado.","Porque quiero seguir aprendiendo cosas de ti.","Porque me ilusiona todo lo que todavía no hemos vivido.","Porque quiero seguir eligiéndote.","Porque, sencillamente, eres alguien muy importante para mí."]},
+    {g:"Tu compañía",t:["Porque tu compañía me hace bien.","Porque estar cerca de ti me da calma.","Porque contigo el tiempo pasa distinto.","Porque me gusta cualquier plan si es contigo.","Porque contigo hasta el silencio es cómodo.","Porque me siento afortunado de tenerte en mi vida.","Porque me alegras incluso los días grises.","Porque quiero contarte hasta las cosas más tontas del día.","Porque contigo me siento en casa.","Porque con solo saber de ti, mi día cambia."]},
+    {g:"Alegría y tranquilidad",t:["Porque contigo se me aligera lo pesado.","Porque me das ganas de sonreír sin motivo.","Porque me alegra compartir risas contigo.","Porque me das paz cuando todo se vuelve ruido.","Porque ver que estás bien me hace feliz.","Porque contigo me siento ligero.","Porque me ilusiona cada conversación contigo.","Porque me hace feliz verte feliz.","Porque contigo aprendo a disfrutar lo simple.","Porque me das motivos para esperar el día con ganas."]},
+    {g:"La confianza",t:["Porque quiero que siempre puedas contar conmigo.","Porque quiero ser alguien en quien puedas confiar.","Porque quiero que te sientas segura a mi lado.","Porque valoro que me dejes conocerte.","Porque quiero ser honesto contigo siempre.","Porque quiero que puedas decirme lo que sientes.","Porque quiero cuidar lo que construimos.","Porque quiero que nunca tengas que dudar de mí.","Porque contigo quiero ir siempre con la verdad por delante.","Porque quiero ganarme tu confianza todos los días."]},
+    {g:"Tu manera de expresarte",t:["Porque me gusta cómo me cuentas las cosas.","Porque quiero conocer cómo ves el mundo.","Porque me importa lo que tienes para decir.","Porque me gusta que seas tú cuando hablas.","Porque cada conversación contigo me deja algo bonito.","Porque quiero entender lo que piensas y lo que sientes.","Porque tu forma de decir las cosas es solo tuya.","Porque me gusta cuando me cuentas tu día.","Porque quiero escuchar tus historias.","Porque contigo las palabras valen más."]},
+    {g:"Lo que quiero darte",t:["Porque quiero apoyarte en tus metas.","Porque quiero celebrar tus logros contigo.","Porque quiero abrazarte cuando lo necesites.","Porque quiero hacerte sentir especial a diario.","Porque quiero tener detalles contigo sin razón.","Porque quiero escucharte sin prisa.","Porque quiero que te sientas querida siempre.","Porque quiero cuidarte, a mi manera.","Porque quiero estar para ti cuando me necesites.","Porque quiero que te sientas valorada tal como eres."]},
+    {g:"Experiencias por vivir",t:["Porque quiero ver atardeceres contigo.","Porque quiero improvisar planes contigo.","Porque quiero probar cosas nuevas a tu lado.","Porque quiero tener una tarde tranquila contigo.","Porque quiero sorprenderte más de una vez.","Porque quiero crear nuestras propias costumbres.","Porque quiero hacerte reír hasta que duela la barriga.","Porque quiero compartirte mi música y conocer la tuya.","Porque quiero caminar contigo sin rumbo.","Porque quiero aprender a tu lado."]},
+    {g:"Para cerrar",t:["Porque eres importante para mí.","Porque contigo todo se siente más bonito.","Porque pensar en ti me hace feliz.","Porque me das ganas de dar lo mejor de mí.","Porque no hay nadie con quien prefiera compartir esto.","Porque quiero seguir conociéndote.","Porque cada día contigo vale la pena.","Porque no te veo como una más: eres tú.","Porque me gusta quien soy cuando estoy contigo.","Porque te amo, y con eso me alcanza."]}
+  ],
+  abre:[
+    {t:"Ábreme cuando estés triste",m:"Está bien no estar bien. No tienes que fingir nada conmigo. Respira, tómate tu tiempo y recuerda que no estás sola: cuando quieras hablar, aquí estoy para escucharte."},
+    {t:"Ábreme cuando tengas un mal día",m:"Los malos días pasan, aunque ahora no lo parezca. No tienes que poder con todo hoy. Descansa un poco, hazte algo rico, y si quieres contármelo, ahí estaré."},
+    {t:"Ábreme cuando dudes de lo mucho que te amo",m:"Si alguna vez dudas, vuelve a leer esto: te amo, eres importante para mí y no te quiero por comparación ni por perfección, sino por ser tú. Si necesitas que te lo repita, te lo repito."},
+    {t:"Ábreme cuando me extrañes",m:"Yo también pienso en ti. El tiempo sin vernos no cambia lo que siento. Mientras tanto, imagina todo lo que vamos a compartir cuando nos veamos."},
+    {t:"Ábreme cuando necesites una sonrisa",m:"Cierra los ojos un segundo y piensa en algo que te haga reír. Ahora imagina que estoy ahí haciéndote una cara ridícula para sacártela. ¿Funcionó?"},
+    {t:"Ábreme cuando quieras recordar lo especial que eres para mí",m:"Eres alguien único, y no lo digo por decir. Lo que sientes y lo que piensas importa mucho. Para mí, eres especial tal cual eres hoy."},
+    {t:"Ábreme cuando no puedas dormir",m:"Sé que tu cabeza no para. Suelta el día por un rato: lo de mañana se resuelve mañana. Respira lento y deja que el cuerpo descanse. Que descanses, mi amor."},
+    {t:"Ábreme cuando simplemente quieras sentirte querida",m:"Para que no se te olvide: te quiero, te valoro y me alegra que existas. Eso no depende de lo que hagas hoy. Recibe un abrazo desde aquí."},
+    {t:"Ábreme cuando necesites que alguien te escuche",m:"Cuéntame lo que quieras, en el orden que salga. No necesitas tenerlo claro. Voy a escucharte sin interrumpir y sin apurarte."},
+    {t:"Ábreme cuando estés feliz y quieras compartirlo",m:"¡Cuéntamelo todo! Me encanta saber qué te alegra. Que compartas tus buenos momentos conmigo es un regalo, y quiero celebrarlos contigo."},
+    {t:"Ábreme cuando estés enfadada conmigo",m:"Si estás molesta conmigo, quiero entenderte. Si necesitas tiempo, lo respeto. Cuando estés lista, hablemos con calma y respeto: yo escucho, me hago cargo de lo que me toque y buscamos una solución juntos."},
+    {t:"Ábreme cuando necesitemos hablar de algo difícil",m:"Hablemos con honestidad y sin prisa. Sin reproches: cada uno dice cómo se siente y escucha al otro. Prefiero una conversación incómoda a un silencio que nos aleje."},
+    {t:"Ábreme cuando necesites un abrazo",m:"Te mando uno bien fuerte desde aquí. Cierra los ojos, respira hondo y siéntelo. Y apenas podamos, te doy uno de verdad."},
+    {t:"Ábreme cuando quieras imaginar nuestro futuro",m:"Imaginar es bonito, y yo también lo hago, sin apuros y sin darlo por hecho. Cuéntame qué ves tú. Lo iremos construyendo paso a paso, hablando y escuchándonos."}
+  ],
+  flores:[
+    "Me gusta cómo me haces sentir cuando estoy contigo.",
+    "Gracias por ser tú, sin esfuerzo y sin disfraz.",
+    "Quiero escucharte hoy, mañana y los días que vengan.",
+    "Contigo hasta lo más simple se siente bonito.",
+    "No hace falta que seas perfecta. Me gustas tal cual eres.",
+    "Cada detalle que descubro de ti me enamora un poco más.",
+    "Si hoy está pesado, aquí tienes un abrazo mío."
+  ],
+  universo:[
+    {t:"Conversaciones pendientes",m:"Quiero escucharte hablar de lo que te importa, de lo que sueñas y de lo que te preocupa."},
+    {t:"Risas por compartir",m:"Las risas tontas, las que no tienen explicación, quiero tenerlas contigo."},
+    {t:"Días difíciles",m:"Cuando algo pese, quiero estar ahí, aunque sea solo para acompañarte en silencio."},
+    {t:"Pequeños detalles",m:"Cosas pensadas en ti, sin esperar una fecha especial."},
+    {t:"Lugares por conocer",m:"Sitios que quiero conocer contigo, cerca o lejos; lo importante es que sea juntos."},
+    {t:"Recuerdos por crear",m:"Todavía nos queda mucho por vivir, y ya me ilusiona."},
+    {t:"Cosas nuevas de ti",m:"Quiero seguir descubriéndote: tus gustos, tus manías, tus historias."}
+  ],
+  final:{
+    frase:"Entre tantas cosas que podría haber hecho, quise crear esta pequeña parte del mundo para ti.",
+    carta:"{n}, crear esta página fue mi forma de mostrarte cuánto significas para mí. No espero nada a cambio: solo quería que lo supieras.\n\nSi pudiera regalarte una sola cosa, sería verte con mis ojos un instante, para que entendieras por qué eres tan especial para mí.\n\nGracias por dejarme estar en tu vida."
+  }
+};
+</script>
+<!-- ============ FIN CONFIGURACIÓN ============ -->
+
+<div id="amb" aria-hidden="true"></div>
+<section id="welcome" aria-label="Bienvenida">
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="w-in">
+    <h1 id="nombre"></h1>
+    <p id="frase" class="serif" style="font-size:1.4rem;font-style:italic"></p>
+    <button class="btn" id="entrar" type="button">Tengo algo para ti ❤️</button>
+  </div>
+</section>
+
+<main id="app" hidden>
+  <section class="sec" id="s-carta">
+    <h2>Una carta para ti</h2>
+    <p class="lead">Escrita con calma, solo para ti.</p>
+    <div class="panel">
+      <div id="carta-texto" aria-live="off"></div>
+      <div id="firma" class="serif" hidden></div>
+      <p style="text-align:center;margin:1.5rem 0 0"><button class="btn" id="leer" type="button">Leer la carta</button></p>
+    </div>
+  </section>
+
+  <section class="sec" id="s-razones">
+    <h2>Razones por las que te amo</h2>
+    <p class="lead">Una por una, sin prisa. <span id="cuenta"></span></p>
+    <div class="grid" id="razones"></div>
+    <button class="btn" id="otra" type="button">Otra razón para amarte</button>
+  </section>
+
+  <section class="sec" id="s-libro">
+    <h2>El libro de lo que siento</h2>
+    <p class="lead">Pasa las páginas con los botones, deslizando o con las flechas del teclado.</p>
+    <div class="libro panel"><h3 id="l-t"></h3><div id="l-p" class="serif"></div><div class="l-nav"><button class="btn" id="l-a" type="button">Anterior</button><span id="l-n"></span><button class="btn" id="l-s" type="button">Siguiente</button></div></div>
+  </section>
+
+  <section class="sec" id="s-cielo">
+    <h2>El cielo de las cosas que quiero decirte</h2>
+    <p class="lead">Toca una estrella. Las más grandes guardan mensajes más largos.</p>
+    <div class="cielo" id="cielo"></div>
+    <p id="msg-est" aria-live="polite"></p>
+  </section>
+
+  <section class="sec" id="s-abre">
+    <h2>Ábreme cuando…</h2>
+    <p class="lead">Elige según cómo te sientas hoy.</p>
+    <div class="sobres" id="sobres"></div>
+  </section>
+
+  <section class="sec" id="s-jardin">
+    <h2>Tu jardín</h2>
+    <p class="lead">Toca una flor.</p>
+    <div class="jardin" id="jardin"></div>
+    <p id="msg-flor" aria-live="polite"></p>
+  </section>
+
+  <section class="sec" id="s-universo">
+    <h2>Nuestro pequeño universo</h2>
+    <p class="lead">Todo lo que quiero vivir contigo.</p>
+    <div class="grid" id="universo"></div>
+  </section>
+
+  <section class="sec" id="s-ideas">
+    <h2>Pequeños momentos bonitos</h2>
+    <p class="lead">Ideas sencillas para compartir, de cerca o a distancia.</p>
+    <div class="panel" style="text-align:center"><p id="idea" class="serif" style="font-size:1.5rem;font-style:italic;min-height:4.5rem;margin:0 0 1.2rem" aria-live="polite">Pulsa el botón y te doy una idea.</p><button class="btn" id="idea-b" type="button">Dame una idea para nosotros</button></div>
+  </section>
+
+  <section class="sec" id="final">
+    <blockquote id="f-frase"></blockquote>
+    <p><button class="btn" id="mas" type="button" disabled>Abrir mi último mensaje</button></p>
+    <p id="gate" class="lead" style="margin:0">Explora la página para desbloquearlo, o <button class="btn" id="saltar" type="button" style="padding:.25rem .9rem;font-size:.9rem">ábrelo ahora</button></p>
+  </section>
+</main>
+
+<div id="fin" role="dialog" aria-modal="true" aria-label="Carta final">
+  <div class="panel" tabindex="-1" id="fin-panel">
+    <span id="f-nombre" style="display:block;font-size:3rem;margin-bottom:1rem;color:var(--rosa)"></span><span id="f-carta"></span>
+    <p style="margin:1.5rem 0 0;color:var(--rosa)">Con todo mi amor, para Isabella. ❤️<br><span id="f-firma"></span></p>
+    <p style="margin:1.5rem 0 0"><button class="btn" id="cerrar" type="button" style="font-family:'Nunito Sans',sans-serif;font-style:normal;font-size:1rem">Seguir explorando</button></p>
+  </div>
+</div>
+
+<button id="prog" type="button" hidden>Descubrimientos: 0 de 7</button>
+<div id="toast" role="status"></div>
+<dialog id="dlg"><h3 id="d-t"></h3><p id="d-m" style="margin:0 0 1.5rem"></p><button class="btn" id="d-x" type="button">Cerrar</button></dialog>
+
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fill=function(s){return s.replace(/\{n\}/g,C.nombre)};
+  var rs=document.documentElement.style;
+  rs.setProperty("--acento",C.colores.acento);rs.setProperty("--rosa",C.colores.rosa);rs.setProperty("--calido",C.colores.calido);
+
+  // Bienvenida
+  $("#nombre").innerHTML=C.nombre.split("").map(function(c,i){return '<span style="animation-delay:'+(i*0.18)+'s">'+c+'</span>'}).join("");
+  $("#nombre").setAttribute("aria-label",C.nombre);
+  $("#frase").textContent=C.frase;
+
+  // Partículas suaves
+  var cv=$("#fx"),cx=cv.getContext("2d"),ps=[],raf=0;
+  function size(){cv.width=innerWidth;cv.height=innerHeight}
+  size();addEventListener("resize",size);
+  for(var i=0;i<45;i++)ps.push({x:Math.random(),y:Math.random(),r:Math.random()*1.8+.4,v:Math.random()*.0006+.0002,a:Math.random()*.6+.2});
+  function draw(){
+    cx.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(function(p){p.y-=p.v;if(p.y<0)p.y=1;cx.beginPath();cx.fillStyle="rgba(232,161,176,"+p.a+")";cx.arc(p.x*cv.width,p.y*cv.height,p.r,0,6.3);cx.fill()});
+    if(!rm)raf=requestAnimationFrame(draw);
+  }
+  draw();
+
+  $("#entrar").addEventListener("click",function(){
+    $("#app").hidden=false;$("#welcome").classList.add("out");
+    setTimeout(function(){$("#welcome").hidden=true;cancelAnimationFrame(raf)},1200);
+    scrollTo(0,0);
+  });
+
+  // Carta con escritura progresiva
+  var full=C.carta.map(fill).join("\n\n"),box=$("#carta-texto"),tm;
+  function fin(){var f=$("#firma");f.textContent="Con cariño, "+C.firma;f.hidden=false;$("#leer").hidden=true}
+  $("#leer").addEventListener("click",function(){
+    $("#leer").disabled=true;
+    if(rm){box.textContent=full;fin();return}
+    var i=0;(function step(){i+=2;box.textContent=full.slice(0,i);if(i<full.length)tm=setTimeout(step,28);else fin()})();
+  });
+
+  // Razones
+  var all=[];C.razones.forEach(function(g){g.t.forEach(function(t){all.push({g:g.g,t:t})})});
+  var order=[],n=0,btn=$("#otra");
+  function shuffle(){order=all.slice();for(var i=order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),x=order[i];order[i]=order[j];order[j]=x}}
+  shuffle();
+  function cuenta(){$("#cuenta").textContent=n+" de "+order.length}
+  cuenta();
+  btn.addEventListener("click",function(){
+    if(n>=order.length){$("#razones").innerHTML="";n=0;shuffle();btn.textContent="Otra razón para amarte";cuenta();return}
+    var r=order[n++],d=document.createElement("div");d.className="card";
+    d.innerHTML="<small></small><p></p>";d.firstChild.textContent=r.g;d.lastChild.textContent=r.t;
+    $("#razones").appendChild(d);cuenta();
+    if(n>=order.length)btn.textContent="Volver a empezar";
+  });
+
+  // Ábreme cuando
+  var dlg=$("#dlg");
+  C.abre.forEach(function(a){
+    var b=document.createElement("button");b.type="button";b.className="sobre serif";b.style.fontSize="1.25rem";b.textContent=a.t;
+    b.addEventListener("click",function(){$("#d-t").textContent=a.t;$("#d-m").textContent=a.m;dlg.showModal()});
+    $("#sobres").appendChild(b);
+  });
+  $("#d-x").addEventListener("click",function(){dlg.close()});
+  dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
+
+  // Jardín nocturno
+  var cols=[C.colores.rosa,C.colores.acento],NS="http://www.w3.org/2000/svg";
+  C.flores.forEach(function(m,k){
+    var b=document.createElement("button");b.type="button";b.className="flor";b.setAttribute("aria-label","Flor "+(k+1)+": abrir mensaje");
+    b.style.marginBottom=(k%3)*1.2+"rem";
+    var c=cols[k%2],pet="";
+    for(var a=0;a<5;a++){var an=a*72*Math.PI/180;pet+='<circle cx="'+(30+Math.sin(an)*11).toFixed(1)+'" cy="'+(24-Math.cos(an)*11).toFixed(1)+'" r="9" fill="'+c+'" opacity=".9"/>'}
+    b.innerHTML='<svg viewBox="0 0 60 130" aria-hidden="true"><path d="M30 34 C28 70 33 100 30 130" stroke="#3d7a4f" stroke-width="3" fill="none"/><path d="M30 90 C18 84 14 76 12 70 C24 72 30 80 30 90Z" fill="#3d7a4f"/>'+pet+'<circle cx="30" cy="24" r="6" fill="#fff3ea"/></svg>';
+    b.addEventListener("click",function(){
+      document.querySelectorAll(".flor").forEach(function(x){x.classList.remove("on")});
+      b.classList.add("on");$("#msg-flor").textContent=m;
+    });
+    $("#jardin").appendChild(b);
+  });
+
+  // Universo
+  C.universo.forEach(function(u){
+    var d=document.createElement("div");d.className="card";d.innerHTML="<small></small><p></p>";
+    d.firstChild.textContent=u.t;d.lastChild.textContent=u.m;$("#universo").appendChild(d);
+  });
+
+  // Sorpresa final
+  $("#f-frase").textContent="“"+C.final.frase+"”";
+  $("#f-carta").textContent=fill(C.final.carta);
+  var fx=$("#fin");
+  for(var h=0;h<16;h++){var s=document.createElement("span");s.className="h";s.textContent="❤";s.setAttribute("aria-hidden","true");
+    s.style.left=(Math.random()*95)+"%";s.style.fontSize=(Math.random()*1.2+.8)+"rem";
+    s.style.animationDuration=(Math.random()*5+7)+"s";s.style.animationDelay=(Math.random()*6)+"s";fx.appendChild(s)}
+  $("#mas").addEventListener("click",function(){fx.classList.add("on");setTimeout(function(){$("#fin-panel").focus()},400)});
+  $("#cerrar").addEventListener("click",function(){fx.classList.remove("on");$("#mas").focus()});
+  addEventListener("keydown",function(e){if(e.key==="Escape")fx.classList.remove("on")});
+
+  // ===== Escenas, cielo, libro, ideas, secretos y progreso =====
+  var EST=[
+    ["Lo que admiro de ti",["Me gusta que seas tal cual eres, sin forzarte.","Admiro la forma en que vas siendo tú, un día a la vez.","Quiero reconocerte lo que haces por ti, aunque a veces nadie lo vea.","Me parece valioso que sigas intentando incluso cuando cuesta.","Admiro que tengas tus propias ideas y tu manera de ver las cosas.","Admiro mucho más de ti de lo que alcanzo a decir. Y lo que todavía no conozco, ya me da curiosidad y ganas de descubrirlo contigo."]],
+    ["Lo que me haces sentir",["Contigo me siento tranquilo.","Pensar en ti me alegra el día.","Me haces sentir con ganas de ser mejor.","Estar contigo se siente fácil y bonito.","Me haces sentir que las cosas pueden estar bien.","Hay sentimientos que cuestan ponerlos en palabras, y los que tengo por ti son de esos. Por eso hice esta página: para acercarme a decirte lo que se siente de verdad."]],
+    ["Lo que quiero que nunca olvides",["Tu valor no depende de lo que hagas hoy.","No tienes que ser perfecta para merecer cariño.","Puedes equivocarte y seguir siendo valiosa.","No estás sola en tus días difíciles.","Importas, y no por lo que produces, sino por quién eres.","Si algún día te sientes poca cosa, recuerda que no eres una más para mí. No necesito que tengas todo resuelto: me alcanza con que seas tú."]],
+    ["Lo que quiero descubrir de ti",["Quiero saber qué te hace reír de verdad.","Quiero saber qué te gusta hacer en tus ratos libres.","Quiero conocer lo que sueñas para tu futuro.","Quiero saber qué te da miedo y cómo puedo acompañarte.","Quiero aprender cómo te gusta que te quieran.","Todo lo que todavía no sé de ti es una invitación. Quiero preguntarte, escucharte y descubrirte con calma, sin apuros y sin suponer nada."]],
+    ["Lo que deseo construir contigo",["Quiero construir confianza contigo, poco a poco.","Quiero que hablemos con honestidad, también cuando sea difícil.","Quiero crear recuerdos bonitos, uno a la vez.","Quiero que tengamos planes pequeños y grandes.","Quiero que nos cuidemos mutuamente.","No te prometo que todo será perfecto. Te ofrezco respeto, esfuerzo y ganas de escucharte, y quiero construir algo que se sienta tranquilo y verdadero."]]
+  ];
+  var LIB=[
+    ["Capítulo I: Cuando pienso en ti","Hay personas que, sin proponérselo, ocupan un lugar especial en la vida de otra. Cuando pienso en ti, siento calma y ganas de sonreír. No sé explicarlo del todo, pero sé que se siente bien."],
+    ["Capítulo II: Lo que significas para mí","Eres importante para mí, y quiero que lo sepas con claridad. Me importa tu presencia, tu cariño y todo lo que todavía me queda por conocer de ti. Quiero ir descubriéndote cada día."],
+    ["Capítulo III: No tienes que ser perfecta","Mereces cariño en tus días buenos y también en los difíciles. Cuando te equivoques o no te sientas en tu mejor momento, eso no cambia lo que eres para mí. Nadie tiene que poder con todo."],
+    ["Capítulo IV: Quiero estar en los días normales","Las conversaciones de todos los días, las risas inesperadas, los planes pequeños. Un día común se vuelve bonito cuando lo compartes con alguien que quieres, y eso es lo que quiero contigo."],
+    ["Capítulo V: Lo que todavía nos queda por vivir","Todavía no hemos vivido todo lo que imagino, y eso me ilusiona. No te prometo un futuro perfecto, solo ganas de ir paso a paso, hablando claro y cuidando lo que construyamos."],
+    ["Capítulo VI: Si algún día dudas","Tu valor no depende de cómo te veas, de tu estado de ánimo, de lo productiva que seas ni de tener todo resuelto. Vales por ser tú. Si algún día lo dudas, vuelve a esta página."]
+  ];
+  var IDEAS=["Compartir una canción que describa cómo se sienten hoy.","Hacerse tres preguntas para conocerse mejor.","Contarse el mejor momento del día.","Crear una lista de planes futuros.","Elegir una película y verla al mismo tiempo, aunque sea a distancia.","Escribirse una carta sin motivo especial.","Preparar cada uno su bebida favorita y brindar, en persona o por videollamada.","Mandarse una foto de algo que vieron y les recordó al otro.","Armar una playlist entre los dos.","Contarse un recuerdo de la infancia.","Dar un paseo sin rumbo, o caminar al mismo tiempo hablando por teléfono.","Cocinar la misma receta y comparar resultados.","Decir tres cosas por las que se sienten agradecidos hoy.","Jugar a “¿qué preferirías?”.","Dibujarse mutuamente, aunque salga mal, y reírse del resultado.","Ver el atardecer a la vez y contarse cómo fue.","Escribir una meta pequeña para la semana y apoyarse.","Compartir un libro, un video o un poema que les haya gustado.","Hacerse un cumplido sincero cada día durante una semana.","Pasar diez minutos sin celular, solo conversando.","Contarse un sueño y cómo podrían acercarse a él.","Crear un álbum compartido con fotos de cosas bonitas del día.","Inventar un apodo cariñoso entre los dos, si a ambos les gusta.","Hacer una videollamada solo para acompañarse mientras cada uno hace sus cosas.","Planear una cita imaginaria y detallar cómo sería.","Recordarse mutuamente algo que hicieron bien últimamente.","Preparar una sorpresa pequeña para el otro.","Escribir cinco cosas que quieren aprender juntos.","Mirar el cielo de noche y compartir lo que piensan.","Terminar el día contándose una cosa buena y una por mejorar."];
+  var AMB={"s-carta":"c","s-razones":"v","s-libro":"l","s-cielo":"n","s-abre":"c","s-jardin":"r","s-universo":"n","s-ideas":"c","final":"f"};
+  var seen={e:{},c:{},f:{},lib:0,ib:0},tt;
+  function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("on")},5000)}
+
+  // Escenas: ambiente según la sección visible y botón para continuar
+  var amb=$("#amb"),secs=document.querySelectorAll("main > section");
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)amb.dataset.a=AMB[e.target.id]||"v"})},{rootMargin:"-45% 0px -45% 0px"});
+  secs.forEach(function(s,i){io.observe(s);if(i<secs.length-1){var b=document.createElement("button");b.className="btn seguir";b.type="button";b.textContent="Seguir";b.addEventListener("click",function(){secs[i+1].scrollIntoView({behavior:rm?"auto":"smooth"})});s.appendChild(b)}});
+
+  // Cielo de estrellas
+  var k=0;
+  EST.forEach(function(g,gi){g[1].forEach(function(m,mi){
+    var b=document.createElement("button");b.type="button";b.className="est"+(mi==5?" esp":"");b.textContent="✦";b.setAttribute("aria-label","Estrella: "+g[0]);
+    b.style.transform="translate("+((k*7%11)-5)+"px,"+((k*5%9)-4)+"px)";k++;
+    b.addEventListener("click",function(){b.classList.add("on");seen.e[gi+"-"+mi]=1;$("#msg-est").textContent=g[0]+"\n"+m});
+    $("#cielo").appendChild(b)})});
+
+  // Libro
+  var lp=0,lb=$(".libro"),tx=0;
+  function lib(){$("#l-t").textContent=LIB[lp][0];var p=$("#l-p");p.textContent=LIB[lp][1];p.style.animation="none";void p.offsetWidth;p.style.animation="";$("#l-n").textContent="Página "+(lp+1)+" de "+LIB.length;$("#l-a").disabled=lp==0;$("#l-s").disabled=lp==LIB.length-1;if(lp==LIB.length-1)seen.lib=1}
+  function pg(d){var n=lp+d;if(n>=0&&n<LIB.length){lp=n;lib()}}
+  $("#l-a").addEventListener("click",function(){pg(-1)});$("#l-s").addEventListener("click",function(){pg(1)});
+  $("#s-libro").addEventListener("keydown",function(e){if(e.key=="ArrowLeft")pg(-1);if(e.key=="ArrowRight")pg(1)});
+  lb.addEventListener("touchstart",function(e){tx=e.touches[0].clientX},{passive:true});
+  lb.addEventListener("touchend",function(e){var d=e.changedTouches[0].clientX-tx;if(d<-50)pg(1);if(d>50)pg(-1)},{passive:true});
+  lib();
+
+  // Ideas
+  var last=-1;
+  $("#idea-b").addEventListener("click",function(){var i;do{i=Math.floor(Math.random()*IDEAS.length)}while(i==last);last=i;$("#idea").textContent=IDEAS[i];seen.ib=1});
+
+  // Seguimiento de cartas y flores, y secretos
+  $("#sobres").addEventListener("click",function(e){var b=e.target.closest(".sobre");if(!b)return;seen.c[b.textContent]=1;if(Object.keys(seen.c).length===C.abre.length)toast("Abriste todas las cartas. Un último recordatorio: no tienes que ser perfecta para que te quieran.")});
+  $("#jardin").addEventListener("click",function(e){var b=e.target.closest(".flor");if(b)seen.f[Array.prototype.indexOf.call(this.children,b)]=1});
+  function oculto(p,ch,msg,css){var b=document.createElement("button");b.type="button";b.className="est";b.textContent=ch;b.setAttribute("aria-label","Secreto escondido");b.style.cssText="position:absolute;font-size:.9rem;opacity:.25;min-height:0;"+css;b.addEventListener("click",function(){toast(msg)});p.appendChild(b)}
+  oculto($("#s-razones"),"♥","Encontraste un corazón escondido. Gracias por fijarte en los detalles.","top:1.2rem;right:1rem");
+  oculto($("#cielo"),"✧","Encontraste una estrella escondida. Gracias por tomarte el tiempo de explorar esto.","top:.3rem;right:.6rem");
+  var jc=0;$("#s-jardin h2").addEventListener("click",function(){if(++jc==5)toast("Cinco toques y encontraste un secreto: aquí florece lo que a veces no se dice en voz alta.")});
+
+  // Progreso y desbloqueo del final
+  function upd(){
+    var t=[!$("#firma").hidden,document.querySelectorAll("#razones .card").length>=10,Object.keys(seen.c).length>=3,Object.keys(seen.f).length>=3,Object.keys(seen.e).length>=5,seen.lib==1,seen.ib==1],d=t.filter(Boolean).length;
+    var N=["leer la carta completa","descubrir 10 razones","abrir 3 cartas de «Ábreme cuando…»","tocar 3 flores del jardín","tocar 5 estrellas del cielo","llegar a la última página del libro","pedir una idea en «Pequeños momentos bonitos»"];
+    $("#prog").dataset.f=N.filter(function(_,i){return !t[i]}).join(", ");
+    $("#prog").textContent="Descubrimientos: "+d+" de "+t.length;
+    $("#mas").disabled=d<t.length;$("#gate").hidden=d>=t.length;
+  }
+  document.addEventListener("click",function(){setTimeout(upd,60)});setInterval(upd,1500);upd();
+  $("#entrar").addEventListener("click",function(){$("#prog").hidden=false});
+  $("#prog").addEventListener("click",function(){var f=this.dataset.f;toast(f?"Te falta: "+f+".":"Ya completaste todo. Baja hasta el final.")});
+  $("#saltar").addEventListener("click",function(){$("#mas").disabled=false;$("#mas").click()});
+  $("#f-firma").textContent=C.firma;$("#f-nombre").textContent=C.nombre;
+
+  // Música (solo si hay URL y carga bien)
+  if(C.musicaUrl){
+    var au=new Audio(C.musicaUrl);au.loop=true;au.volume=.5;
+    var box2=document.createElement("div");box2.id="musica";
+    box2.innerHTML='<button class="btn" type="button" id="mb" style="padding:.4rem 1rem" aria-pressed="false">Música: apagada</button><input type="range" min="0" max="1" step=".05" value=".5" aria-label="Volumen">';
+    document.body.appendChild(box2);
+    var mb=box2.querySelector("#mb");
+    mb.addEventListener("click",function(){
+      if(au.paused){au.play().then(function(){mb.textContent="Música: sonando";mb.setAttribute("aria-pressed","true")}).catch(function(){box2.remove()})}
+      else{au.pause();mb.textContent="Música: apagada";mb.setAttribute("aria-pressed","false")}
+    });
+    box2.querySelector("input").addEventListener("input",function(e){au.volume=+e.target.value});
+    au.addEventListener("error",function(){box2.remove()});
+  }
+})();
+</script>
+</body>
+</html>
